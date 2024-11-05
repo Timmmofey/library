@@ -1,0 +1,9 @@
+﻿namespace Library.Controllers.Contracts
+{
+    public record LibraryRequestModel
+    {
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Description { get; set; }
+    }
+}
