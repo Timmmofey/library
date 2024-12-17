@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Space, Button, Modal, Form, Input, Select, DatePicker, message } from "antd";
 import axios from "axios";
 import dayjs from "dayjs";
-import { useAuthStore } from '../../stores/authStore';
+// import { useAuthStore } from '../../stores/authStore';
 import Cookies from 'js-cookie';
 
 
@@ -43,7 +43,7 @@ interface Librarian {
 
 const LoanTable = () => {
   const [data, setData] = useState<LoanRecord[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [editingRecord, setEditingRecord] = useState<LoanRecord | null>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [addModalVisible, setAddModalVisible] = useState<boolean>(false);
@@ -54,7 +54,7 @@ const LoanTable = () => {
   const [searchInventoryNumber, setSearchInventoryNumber] = useState<string>('');
   const [searchReaderName, setSearchReaderName] = useState<string>('');
 
-  const user = useAuthStore((state) => state.user);
+  // const user = useAuthStore((state) => state.user);
 
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const LoanTable = () => {
   }, []);
 
   const fetchData = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const response = await axios.get<LoanRecord[]>(`${API_BASE_URL}/api/Loan`);
       setData(response.data);
@@ -71,7 +71,7 @@ const LoanTable = () => {
       console.error("Ошибка:", error);
       message.error("Ошибка загрузки данных");
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -110,7 +110,7 @@ const LoanTable = () => {
 
   const handleUpdate = async (values: LoanRecord) => {
     try {
-      const toUtcDatePlusOneDay = (date) =>
+      const toUtcDatePlusOneDay = (date: string | null | undefined) =>
         date ? dayjs(date).add(1, "day").startOf("day").toISOString() : null;
 
       const updatedRecord = {

@@ -25,7 +25,7 @@ const ReadingRoomsPage: React.FC = () => {
   const [editingRoom, setEditingRoom] = useState<ReadingRoom | null>(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
   // Fetch libraries for the dropdown
@@ -34,20 +34,20 @@ const ReadingRoomsPage: React.FC = () => {
       const response = await axios.get<Library[]>(`${API_BASE_URL}/Library`);
       setLibraries(response.data);
     } catch (error) {
-      message.error("Ошибка при загрузке библиотек");
+      console.error("Ошибка при загрузке библиотек", error);
     }
   };
 
   // Fetch all reading rooms
   const fetchReadingRooms = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await axios.get<ReadingRoom[]>(`${API_BASE_URL}/api/ReadingRooms`);
       setReadingRooms(response.data);
     } catch (error) {
-      message.error("Ошибка при загрузке читальных залов");
+      console.error("Ошибка при загрузке читальных залов", error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
@@ -79,7 +79,7 @@ const ReadingRoomsPage: React.FC = () => {
       closeEditModal();
       fetchReadingRooms();
     } catch (error) {
-      message.error("Ошибка при обновлении читального зала");
+      console.error("Ошибка при обновлении читального зала", error);
     }
   };
 
@@ -96,7 +96,7 @@ const ReadingRoomsPage: React.FC = () => {
           message.success("Читальный зал успешно удален");
           fetchReadingRooms();
         } catch (error) {
-          message.error("Ошибка при удалении читального зала");
+          console.error("Ошибка при удалении читального зала", error);
         }
       },
     });
@@ -121,7 +121,7 @@ const ReadingRoomsPage: React.FC = () => {
       closeAddModal();
       fetchReadingRooms();
     } catch (error) {
-      message.error("Ошибка при добавлении читального зала");
+      console.error("Ошибка при добавлении читального зала", error);
     }
   };
 

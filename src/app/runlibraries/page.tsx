@@ -21,19 +21,19 @@ const LibrariesPage: React.FC = () => {
   const [editingLibrary, setEditingLibrary] = useState<Library | null>(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
   // Fetch all libraries
   const fetchLibraries = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await axios.get<Library[]>(`${API_BASE_URL}/library`);
       setLibraries(response.data);
     } catch (error) {
-      message.error("Ошибка при загрузке библиотек");
+      console.error("Ошибка при загрузке библиотек", error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
@@ -64,7 +64,7 @@ const LibrariesPage: React.FC = () => {
       closeEditModal();
       fetchLibraries();
     } catch (error) {
-      message.error("Ошибка при обновлении библиотеки");
+      console.error("Ошибка при обновлении библиотеки", error);
     }
   };
 
@@ -81,7 +81,7 @@ const LibrariesPage: React.FC = () => {
           message.success("Библиотека успешно удалена");
           fetchLibraries();
         } catch (error) {
-          message.error("Ошибка при удалении библиотеки");
+          console.error("Ошибка при удалении библиотеки", error);
         }
       },
     });
@@ -105,8 +105,9 @@ const LibrariesPage: React.FC = () => {
       message.success("Библиотека успешно добавлена");
       closeAddModal();
       fetchLibraries();
+      console.log(response)
     } catch (error) {
-      message.error("Ошибка при добавлении библиотеки");
+      console.error("Ошибка при добавлении библиотеки", error);
     }
   };
 

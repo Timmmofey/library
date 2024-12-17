@@ -5,7 +5,6 @@ import axios from 'axios';
 import { FormInstance } from 'antd/lib/form';
 
 import { API_BASE_URL } from '../../../const';
-import Header from '@/components/Header';
 
 
 const { Option } = Select;

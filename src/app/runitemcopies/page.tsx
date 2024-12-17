@@ -7,7 +7,6 @@ import { API_BASE_URL } from "../../../const";
 import moment from "moment";
 
 const { confirm } = Modal;
-const { Option } = Select;
 
 interface ItemCopy {
   id: string;
@@ -27,7 +26,6 @@ const ItemCopiesPage: React.FC = () => {
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [editingItemCopy, setEditingItemCopy] = useState<ItemCopy | null>(null);
   const [form] = Form.useForm();
-  const [isLoading, setIsLoading] = useState(false);
 
   const [shelves, setShelves] = useState([]);
     const [items, setItems] = useState([]);
@@ -59,14 +57,12 @@ const ItemCopiesPage: React.FC = () => {
 
   // Получение всех копий книг
   const fetchItemCopies = async () => {
-    setIsLoading(true);
     try {
       const response = await axios.get<ItemCopy[]>(`${API_BASE_URL}/itemcopies`);
       setItemCopies(response.data);
     } catch (error) {
-      message.error("Ошибка при загрузке копий книг");
+      console.error("Ошибка при загрузке копий книг", error);
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -111,7 +107,7 @@ const ItemCopiesPage: React.FC = () => {
   };
 
   // Добавление новой копии книги
-  const addItemCopy = async (values: any) => {
+  const addItemCopy = async (values: {itemId: string;shelfId:string;inventoryNumber:string;loanable:boolean;}) => {
     try {
       // Оставляем только необходимые поля для API
       const newItemCopy = {
@@ -125,13 +121,14 @@ const ItemCopiesPage: React.FC = () => {
       message.success("Копия книги успешно добавлена");
       closeAddModal();
       fetchItemCopies();
+      console.log(response)
     } catch (error) {
-      message.error("Ошибка при добавлении копии книги");
+      console.error("Ошибка при добавлении копии книги", error);
     }
   };
 
   // Обновление копии книги
-  const updateItemCopy = async (values: any) => {
+  const updateItemCopy = async (values: {itemId:string;shelfId:string;inventoryNumber:string;loanable:string;loaned:string;lost:string;dateReceived: moment.Moment | null ;dateWithdrawn:moment.Moment | null;}) => {
     if (!editingItemCopy) return;
   
     try {
@@ -151,7 +148,7 @@ const ItemCopiesPage: React.FC = () => {
       closeEditModal();
       fetchItemCopies();
     } catch (error) {
-      message.error("Ошибка при обновлении копии книги");
+      console.log("Ошибка при обновлении копии книги", error);
     }
   };
   
@@ -169,7 +166,7 @@ const ItemCopiesPage: React.FC = () => {
           message.success("Копия книги успешно удалена");
           fetchItemCopies();
         } catch (error) {
-          message.error("Ошибка при удалении копии книги");
+          console.log("Ошибка при обновлении копии книги", error);
         }
       },
     });
@@ -182,7 +179,7 @@ const ItemCopiesPage: React.FC = () => {
       message.success("Копия книги отмечена как потерянная");
       fetchItemCopies();
     } catch (error) {
-      message.error("Ошибка при отчете о потере книги");
+      console.log("Ошибка при обновлении копии книги", error);
     }
   };
 
@@ -193,7 +190,7 @@ const ItemCopiesPage: React.FC = () => {
       message.success("Статус потери отменен");
       fetchItemCopies();
     } catch (error) {
-      message.error("Ошибка при отмене статуса потери книги");
+      console.log("Ошибка при обновлении копии книги", error);
     }
   };
 
@@ -254,7 +251,7 @@ const ItemCopiesPage: React.FC = () => {
                 rules={[{ required: true, message: "Выберите полку" }]}
             >
                 <Select placeholder="Выберите полку">
-                {shelves.map((shelf) => (
+                {shelves.map((shelf : {id: string; number:string;}) => (
                     <Select.Option key={shelf.id} value={shelf.id}>
                     {`${shelf.number}`}
                     </Select.Option>
@@ -269,7 +266,7 @@ const ItemCopiesPage: React.FC = () => {
                 rules={[{ required: true, message: "Выберите издание" }]}
             >
                 <Select placeholder="Выберите издание">
-                {items.map((item) => (
+                {items.map((item: {id: string; title: string}) => (
                     <Select.Option key={item.id} value={item.id}>
                     {item.title}
                     </Select.Option>
@@ -325,7 +322,7 @@ const ItemCopiesPage: React.FC = () => {
             rules={[{ required: true, message: "Выберите полку" }]}
             >
             <Select placeholder="Выберите полку">
-                {shelves.map((shelf) => (
+                {shelves.map((shelf: {id: string; number: string}) => (
                 <Select.Option key={shelf.id} value={shelf.id}>
                     {`${shelf.number}`}
                 </Select.Option>
@@ -340,7 +337,7 @@ const ItemCopiesPage: React.FC = () => {
             rules={[{ required: true, message: "Выберите издание" }]}
             >
             <Select placeholder="Выберите издание">
-                {items.map((item) => (
+                {items.map((item: {id: string; title: string}) => (
                 <Select.Option key={item.id} value={item.id}>
                     {item.title}
                 </Select.Option>

@@ -25,7 +25,7 @@ const Books: React.FC = () => {
   const [searchTermName, setSearchTermName] = useState<string>(''); // Поиск по названию
   const [searchTermInventory, setSearchTermInventory] = useState<string>(''); // Поиск по инвентарному номеру
   const [status, setStatus] = useState<number | null>(null); // 0 - не возвращены, 1 - возвращены, 2 - утеряны
-  const [isLost, setIsLost] = useState<number | null>(null); // Фильтрация по утерянным книгам
+  // const [isLost, setIsLost] = useState<number | null>(null); // Фильтрация по утерянным книгам
 
   useEffect(() => {
     // Извлекаем токен из куки

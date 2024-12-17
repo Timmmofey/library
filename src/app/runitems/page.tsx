@@ -21,6 +21,13 @@ interface Item {
   authors: Author[];
 }
 
+interface ItemFormValues {
+  title: string;
+  publicationDate: string;
+  itemImageUrl?: string;
+  authors: string[]; // массив идентификаторов авторов
+}
+
 const ItemsPage: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [authors, setAuthors] = useState<Author[]>([]);
@@ -28,18 +35,18 @@ const ItemsPage: React.FC = () => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   // Получение списка элементов
   const fetchItems = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await axios.get<Item[]>(`${API_BASE_URL}/items`);
       setItems(response.data);
     } catch (error) {
-      message.error("Ошибка при загрузке элементов");
+      console.error("Ошибка при загрузке элементов", error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
@@ -49,7 +56,7 @@ const ItemsPage: React.FC = () => {
       const response = await axios.get<Author[]>(`${API_BASE_URL}/authors`);
       setAuthors(response.data);
     } catch (error) {
-      message.error("Ошибка при загрузке авторов");
+      console.error("Ошибка при загрузке авторов", error);
     }
   };
 
@@ -90,7 +97,7 @@ const ItemsPage: React.FC = () => {
   };
 
   // Обновление элемента
-  const updateItem = async (values: any) => {
+  const updateItem = async (values: ItemFormValues) => {
     if (!editingItem) return;
     try {
       const updatedItem = {
@@ -104,12 +111,12 @@ const ItemsPage: React.FC = () => {
       closeEditModal();
       fetchItems();
     } catch (error) {
-      message.error("Ошибка при обновлении элемента");
+      console.error("Ошибка при обновлении элемента", error);
     }
   };
 
   // Добавление нового элемента
-  const addItem = async (values: any) => {
+  const addItem = async (values: ItemFormValues) => {
     try {
       const newItem = {
         ...values,
@@ -122,7 +129,7 @@ const ItemsPage: React.FC = () => {
       closeAddModal();
       fetchItems();
     } catch (error) {
-      message.error("Ошибка при добавлении элемента");
+      console.error("Ошибка при добавлении элемента", error);
     }
   };
 
@@ -139,7 +146,7 @@ const ItemsPage: React.FC = () => {
           message.success("Элемент успешно удален");
           fetchItems();
         } catch (error) {
-          message.error("Ошибка при удалении элемента");
+          console.error("Ошибка при удалении элемента", error);
         }
       },
     });

@@ -1,7 +1,5 @@
 "use client"
-import Header from '@/components/Header'
 import React, { useEffect } from 'react'
-import LoanTable from '../../components/LoanLibInterface'
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/authStore';
 import Link from 'next/link';
