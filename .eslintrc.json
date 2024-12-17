@@ -1,35 +1,3 @@
-// {
-//   "extends": ["next/core-web-vitals", "next/typescript"]
-// }
 {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended", // Рекомендуемые правила для TypeScript
-    "plugin:@next/next/recommended"
-  ],
-  "parser": "@typescript-eslint/parser", // Используем парсер для TypeScript
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": ["@typescript-eslint"], // Плагин для TypeScript
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "rules": {
-    "react/react-in-jsx-scope": "off", // Отключаем, так как React 17+ не требует импорта React
-    "@typescript-eslint/no-unused-vars": "warn", // Предупреждение о неиспользуемых переменных
-    "@typescript-eslint/explicit-module-boundary-types": "off" // Отключаем обязательный тип возвращаемого значения
-  }
+  "extends": ["next/core-web-vitals", "next/typescript"]
 }
