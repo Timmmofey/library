@@ -149,7 +149,7 @@ const ReadersWithItemPage: NextPage = () => {
                     rowKey="readerId"
                     loading={loading}
                     pagination={{ pageSize: 10 }}
-                    locale={{ emptyText: 'No data' }}
+                    locale={{ emptyText: 'Нет записей' }}
                 />
             )}
         </div>

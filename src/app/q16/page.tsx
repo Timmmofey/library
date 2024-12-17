@@ -66,7 +66,7 @@ const PopularPublicationsPage: React.FC = () => {
                 columns={columns}
                 rowKey="publication"
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: loading ? 'Loading...' : 'No publications found' }} 
+                locale={{ emptyText: loading ? 'Loading...' : 'Нет данных' }} 
                 style={{ marginTop: '16px' }}
             />
         </div>

@@ -125,7 +125,7 @@ const ItemCopiesByPublicationPage: React.FC = () => {
                 columns={columns}
                 rowKey="itemCopyId"
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: loading ? 'Loading...' : 'No item copies found' }}
+                locale={{ emptyText: loading ? 'Loading...' : 'Нет данныз' }}
                 style={{ marginTop: '16px' }}
             />
         </div>

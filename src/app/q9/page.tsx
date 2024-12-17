@@ -89,7 +89,7 @@ const LibrarianWorkReportPage: React.FC = () => {
                 rowKey="librarianId"
                 loading={loading}
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: 'No data' }}
+                locale={{ emptyText: 'Нет записей' }}
             />
         </div>
     );

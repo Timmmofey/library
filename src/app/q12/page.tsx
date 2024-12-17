@@ -132,9 +132,8 @@ const LibrariansByReadingRoomPage: React.FC = () => {
                 rowKey="id"
                 loading={loading}
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: loading ? 'Loading...' : 'No librarians found' }} 
+                locale={{ emptyText: loading ? 'Loading...' : 'Нет записей' }} 
                 style={{ marginTop: '16px' }}
-                rowClassName={(record, index) => (index % 2 === 0 ? 'even-row' : 'odd-row')}
             />
         </div>
     );

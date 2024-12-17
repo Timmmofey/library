@@ -90,7 +90,7 @@ const ReadersNotVisitedPage: React.FC = () => {
                 columns={columns}
                 rowKey="id"
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: loading ? 'Loading...' : 'No readers found' }}
+                locale={{ emptyText: loading ? 'Loading...' : 'Нет записей' }}
                 style={{ marginTop: '16px' }}
             />
         </div>

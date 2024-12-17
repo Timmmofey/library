@@ -4,13 +4,27 @@ import axios from 'axios';
 import { Form, Input, Button, Table, Alert } from 'antd';
 import { NextPage } from 'next';
 
-interface ReaderDto {
+// interface ReaderDto {
+//     id: string;
+//     email: string;
+//     fullName: string;
+//     libraryId: string | null;
+//     readerCategoryId: string | null;
+//     subscriptionEndDate: string | null;
+//     educationalInstitution: string | null;
+//     faculty: string | null;
+//     course: string | null;
+//     groupNumber: string | null;
+//     organization: string | null;
+//     researchTopic: string | null;
+// }
+interface ReaderDto1 {
     id: string;
     email: string;
     fullName: string;
-    libraryId: string | null;
-    readerCategoryId: string | null;
-    subscriptionEndDate: string | null;
+    libraryName: string | null;
+    readerCategoryId: string | null; 
+    subscriptionEndDate: string | null; 
     educationalInstitution: string | null;
     faculty: string | null;
     course: string | null;
@@ -22,7 +36,7 @@ interface ReaderDto {
 const ReadersWithBookPage: NextPage = () => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
-    const [readers, setReaders] = useState<ReaderDto[]>([]);
+    const [readers, setReaders] = useState<ReaderDto1[]>([]);
     const [noResults, setNoResults] = useState<boolean>(false);
 
     const handleSearch = async (values: any) => {
@@ -30,7 +44,7 @@ const ReadersWithBookPage: NextPage = () => {
         setReaders([]); 
         setNoResults(false);
         try {
-            const response = await axios.get<ReaderDto[]>('http://localhost:5251/api/Reader/withBook2', {
+            const response = await axios.get<ReaderDto1[]>('http://localhost:5251/api/Reader/withBook2', {
                 params: { publication: values.publication },
             });
             setReaders(response.data);
@@ -55,14 +69,24 @@ const ReadersWithBookPage: NextPage = () => {
             key: 'email',
         },
         {
-            title: 'ID Библиотеки',
-            dataIndex: 'libraryId',
-            key: 'libraryId',
+            title: 'Название Библиотеки',
+            dataIndex: 'libraryName',
+            key: 'libraryName',
         },
         {
             title: 'ID Категории читателя',
             dataIndex: 'readerCategoryId',
             key: 'readerCategoryId',
+            render: (id: string) => {
+                switch (id) {
+                    case 'ceb525a5-8d68-4bd6-a962-e6e5f1a0ff3c':
+                        return 'Студент';
+                    case 'ddb7a5f0-0e41-4509-b904-6abc77611f81':
+                        return 'Научный сотрудник';
+                    default:
+                        return 'Неизвестно';
+                }
+            }
         },
         {
             title: 'Дата окончания подписки',

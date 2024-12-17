@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Select, Table, Form } from 'antd';
@@ -57,21 +57,32 @@ const LoanedItems: React.FC = () => {
     };
 
     const getLoanedItemsByShelfId = async (shelfId: string): Promise<ItemCopyDto1[]> => {
-        const response = await axios.get(`http://localhost:5251/api/Reader/loanedItemsByShelf7?shelfId=${shelfId}`);
-        return response.data.map((item: any) => ({
-            itemCopyId: item.itemCopyId,
-            itemId: item.itemId,
-            title: item.title,
-            authors: item.authors,
-            inventoryNumber: item.inventoryNumber,
-            loanable: item.loanable,
-            loaned: item.loaned,
-            lost: item.lost,
-            dateReceived: item.dateReceived ? new Date(item.dateReceived) : null,
-            dateWithdrawn: item.dateWithdrawn ? new Date(item.dateWithdrawn) : null,
-            publications: item.publications,
-        }));
+        try {
+            const response = await axios.get(`http://localhost:5251/api/Reader/loanedItemsByShelf7?shelfId=${shelfId}`);
+            
+            if (!response.data || response.data.length === 0) {
+                return []; 
+            }
+    
+            return response.data.map((item: any) => ({
+                itemCopyId: item.itemCopyId,
+                itemId: item.itemId,
+                title: item.title,
+                authors: item.authors,
+                inventoryNumber: item.inventoryNumber,
+                loanable: item.loanable,
+                loaned: item.loaned,
+                lost: item.lost,
+                dateReceived: item.dateReceived ? new Date(item.dateReceived) : null,
+                dateWithdrawn: item.dateWithdrawn ? new Date(item.dateWithdrawn) : null,
+                publications: item.publications,
+            }));
+        } catch (error) {
+            console.error("Error fetching loaned items:", error);
+            return []; 
+        }
     };
+    
 
     useEffect(() => {
         const fetchLibraries = async () => {
@@ -176,13 +187,13 @@ const LoanedItems: React.FC = () => {
                     </Select>
                 </Form.Item>
 
-                {shelves.length > 0 && (
                     <Form.Item label="Выберите полку:">
                         <Select
                             style={{ width: 200 }}
                             value={selectedShelfId}
                             onChange={handleShelfChange}
                             placeholder="Select a Shelf"
+                            disabled={!selectedLibraryId}
                         >
                             {shelves.map(shelf => (
                                 <Select.Option key={shelf.id} value={shelf.id}>
@@ -191,15 +202,17 @@ const LoanedItems: React.FC = () => {
                             ))}
                         </Select>
                     </Form.Item>
-                )}
             </Form>
 
-            {loanedItems.length > 0 && (
-                <div style={{ marginTop: 20 }}>
-                    <h2>Выданные издания:</h2>
-                    <Table dataSource={loanedItems} columns={columns} rowKey="itemCopyId" />
-                </div>
-            )}
+            <div style={{ marginTop: 20 }}>
+                <h2>Выданные издания:</h2>
+                <Table
+                    dataSource={loanedItems}
+                    columns={columns}
+                    rowKey="itemCopyId"
+                    locale={{ emptyText: "Нет данных" }}
+                />
+            </div>
         </div>
     );
 };

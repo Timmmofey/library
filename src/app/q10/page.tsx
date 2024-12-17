@@ -112,7 +112,7 @@ const OverdueReadersPage: React.FC = () => {
                 rowKey="id"
                 loading={loading}
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: 'No overdue readers found' }}
+                locale={{ emptyText: 'Нет записей' }}
             />
         </div>
     );

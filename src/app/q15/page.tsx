@@ -143,7 +143,7 @@ const SearchItemsByAuthorsPage: React.FC = () => {
                 columns={columns}
                 rowKey="itemCopyId"
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: loading ? 'Loading...' : 'No items found' }}
+                locale={{ emptyText: loading ? 'Loading...' : 'Нет данных' }}
                 style={{ marginTop: '16px' }}
             />
         </div>

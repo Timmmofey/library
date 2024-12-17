@@ -158,7 +158,7 @@ const ItemCopiesPage: React.FC = () => {
                 rowKey="itemCopyId"
                 loading={loading}
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: 'No item copies found' }}
+                locale={{ emptyText: 'Нет записей' }}
             />
         </div>
     );

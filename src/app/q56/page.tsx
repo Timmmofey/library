@@ -178,7 +178,7 @@ const ItemsByReaderPage: NextPage = () => {
                 rowKey="itemCopyId"
                 loading={loading}
                 pagination={{ pageSize: 10 }}
-                locale={{ emptyText: 'No data available' }}
+                locale={{ emptyText: 'Нет записей' }}
             />
         </div>
     );

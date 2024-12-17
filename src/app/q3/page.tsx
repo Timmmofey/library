@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Table, Select, Alert } from 'antd';
+import { Form, Button, Table, Select, Alert } from 'antd';
 import { NextPage } from 'next';
 
 interface ReaderDto1 {
